@@ -121,11 +121,19 @@ traits:
         204:
           body:
 
-/data:
-  description: Data resource.
+/issueType:
+
+  get:
+    description: issueType resource.
+    responses:
+      200:
+        body:
+          application/json:
+  
+
   /populate:
     post:
       description: Allow to populate random data to have a starting situation.
       responses:
         200:
-          body:
+          body: 
