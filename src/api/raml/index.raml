@@ -121,6 +121,69 @@ traits:
         204:
           body:
 
+/issue:
+
+  get:
+    description: issue resource.
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+             {
+                "author": "Jean Bon",
+                "issueType": "issueType name",
+                "description": "issue's description",
+                "coordinates": "24 42 13 2",
+                "status": "issue's status",
+                "comments":
+                [{
+                  "author": "Florent Plomb",
+                  "date": "3w3qweq",
+                  "content": "lorem ipsum"
+                }]
+              }
+
+  post:
+    description: Create a new issue.
+    body:
+      application/json:
+        example: |
+          {
+            "author": "Jean Bon",
+            "issueType": "issueType name",
+            "description": "issue's description",
+            "coordinates": "24 42 13 2"
+          }
+    responses:
+      201:
+        body:
+          application/json:
+            example: |
+              {
+                "id": "54d8ae163fd30364605c81a4",
+                "issueType": "issueType name",
+                "description": "issue's description",
+                "coordinates": "24 42 13 2"
+              }
+  /{id}:
+    post:
+      description: Allow to populate random data to have a starting situation.
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "name": "issueType name",
+                  "description": "IssueType description"
+                }
+
+  /{id}/actions:
+    post:
+      description: Action resource.
+
+
 /issueType:
 
   get:
@@ -129,12 +192,14 @@ traits:
       200:
         body:
           application/json:
+            example: |
+              {
+                "name": "issueType name",
+                "description": "IssueType description"
+              }
 
 
-  /{id}:
-    post:
-      description: Allow to populate random data to have a starting situation.
-      responses:
-        200:
-          body:
+
+  
+
 
