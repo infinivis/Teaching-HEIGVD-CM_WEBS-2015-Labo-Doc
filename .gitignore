@@ -5,3 +5,4 @@ public/components
 npm-debug.log
 build/
 raml.json
+/nbproject/private/
