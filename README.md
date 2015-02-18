@@ -1,3 +1,5 @@
+# MATTHIEU HARBICH & ROMAIN CERANTOLA
+
 # Smart City - Citizen Engagement - Doc Skeleton
 
 *Documentation of the API of the Citizen Engagement*
