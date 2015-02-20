@@ -401,86 +401,86 @@ traits:
       
           
 
-  /issueType:
-  description: issueType resource.
+/issueType:
+description: issueType resource.
+get:
+  is: [auth: { roles: 'staff' }]
+  description: Retrieve the list of the issue types.
+  responses:
+    200:
+      body:
+        application/json:
+          example: |
+            [
+              {
+                "id": "54d8ae163fd30364605c81a4",
+                "name": "Graffiti",
+                "description": "There is a graffiti somewhere"
+              },
+              {
+                "id": "54d8ae163fd30364605c81a4",
+                "name": "Broken Street Light",
+                "description": "There is a broken streetlight somewhere"
+              }
+            ]
+
+post:
+  description: Create a new issueType.
+  body:
+    application/json:
+      example: |
+        {
+          "name": "Broken sidewalk",
+          "description": "There is a broken sidewalk in the city"
+        }
+  responses:
+    201:
+      body:
+        application/json:
+          example: |
+            {
+              "id": "54d8ae163fd30364605c81a4",
+              "name": "Broken sidewalk",
+              "description": "There is a broken sidewalk in the city",
+              }
+
+/{id}:
   get:
-    is: [auth: { roles: 'staff' }]
-    description: Retrieve the list of the issue types.
+    is: [auth: {roles: 'any'} ]
+    description: Retrieve the details of a specific issueType.
     responses:
       200:
-        body:
-          application/json:
-            example: |
-              [
-                {
-                  "id": "54d8ae163fd30364605c81a4",
-                  "name": "Graffiti",
-                  "description": "There is a graffiti somewhere"
-                },
-                {
-                  "id": "54d8ae163fd30364605c81a4",
-                  "name": "Broken Street Light",
-                  "description": "There is a broken streetlight somewhere"
-                }
-              ]
-
-  post:
-    description: Create a new issueType.
-    body:
-      application/json:
-        example: |
-          {
-            "name": "Broken sidewalk",
-            "description": "There is a broken sidewalk in the city"
-          }
-    responses:
-      201:
         body:
           application/json:
             example: |
               {
                 "id": "54d8ae163fd30364605c81a4",
                 "name": "Broken sidewalk",
-                "description": "There is a broken sidewalk in the city",
-                }
-
-  /{id}:
-    get:
-      is: [auth: {roles: 'any'} ]
-      description: Retrieve the details of a specific issueType.
-      responses:
-        200:
-          body:
-            application/json:
-              example: |
-                {
-                  "id": "54d8ae163fd30364605c81a4",
-                  "name": "Broken sidewalk",
-                  "description": "There is a broken sidewalk in the city"
-                }
-    put:
-      is: [auth: {roles: 'staff'} ]
-      description: Update the details of a specific issueType.
-      body:
-        application/json:
-          example: |
-            {
-              "name": "Broken sidewalk",
-              "description": "There is a broken sidewalk in the city",
-            }
-      responses:
-        200:
-          body:
-            application/json:
-              example: |
-                {
-                  "id": "54d8ae163fd30364605c81a4",
-                  "name": "Broken sidewalk",
-                  "description": "There is a broken sidewalk in the city"
-                }
-    delete:
-      is: [auth: {roles: 'staff'} ]
-      description: Delete a specific issueType.
-      responses:
-        204:
-          body:
+                "description": "There is a broken sidewalk in the city"
+              }
+  put:
+    is: [auth: {roles: 'staff'} ]
+    description: Update the details of a specific issueType.
+    body:
+      application/json:
+        example: |
+          {
+            "name": "Broken sidewalk",
+            "description": "There is a broken sidewalk in the city",
+          }
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                "id": "54d8ae163fd30364605c81a4",
+                "name": "Broken sidewalk",
+                "description": "There is a broken sidewalk in the city"
+              }
+  delete:
+    is: [auth: {roles: 'staff'} ]
+    description: Delete a specific issueType.
+    responses:
+      204:
+        body:
