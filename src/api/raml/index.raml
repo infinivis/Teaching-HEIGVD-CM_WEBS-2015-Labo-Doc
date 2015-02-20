@@ -130,15 +130,44 @@ traits:
         body:
           application/json:
             example: |
-             {
-                "author": "Jean Bon",
-                "issueType": "issueType name",
+             {  
+                "id": "ds9a7d9sa7d9sa8d,"
+                "_author":
+                { 
+                  "id": "asd8sad97asd8ahdas987ads",
+                  "firstname": "Romain",
+                  "lastname": "Terieur"
+                },
+                "_issueType":
+                { 
+                  "id": "dsa9d8sa09d809sa8das",
+                  "name": "Hole in a road",
+                  "description": "lorem ipsum"
+                  },
                 "description": "issue's description",
-                "coordinates": "24 42 13 2",
+                "longitude": "24",
+                "latitude": "12",
                 "status": "issue's status",
-                "comments":
+                "_comments":
                 [{
-                  "author": "Florent Plomb",
+                  "id": "32kjlkjlkjl321",
+                  "_author":
+                  { 
+                    "id": "28312hkhkh321",
+                    "firstname": "Matthieu",
+                    "lastname": "Harbich"
+                  },
+                  "date": "3w3qweq",
+                  "content": "lorem ipsum"
+                },
+                {
+                  "id": "32kjlkjlkjl321",
+                  "_author":
+                  { 
+                    "id": "28312hkhkh321",
+                    "firstname": "Matthieu",
+                    "lastname": "Harbich"
+                  },
                   "date": "3w3qweq",
                   "content": "lorem ipsum"
                 }]
@@ -149,40 +178,228 @@ traits:
     body:
       application/json:
         example: |
-          {
-            "author": "Jean Bon",
-            "issueType": "issueType name",
-            "description": "issue's description",
-            "coordinates": "24 42 13 2"
-          }
+          {  
+                "author":
+                { 
+                  "firstname": "Romain",
+                  "lastname": "Terieur"
+                },
+                "issueType":
+                { 
+                  "name": "Hole in a road",
+                  "description": "lorem ipsum"
+                  },
+                "description": "issue's description",
+                "longitude": "24",
+                "latitude": "12",
+                "status": "issue's status",
+                "comments":
+                [{
+                  "author":
+                  { 
+                    "firstname": "Matthieu",
+                    "lastname": "Harbich"
+                  },
+                  "date": "3w3qweq",
+                  "content": "lorem ipsum"
+                },
+                {
+                  "author":
+                  { 
+                    "firstname": "Matthieu",
+                    "lastname": "Harbich"
+                  },
+                  "date": "3w3qweq",
+                  "content": "lorem ipsum"
+                }]
+              }
     responses:
       201:
         body:
           application/json:
             example: |
-              {
-                "id": "54d8ae163fd30364605c81a4",
-                "issueType": "issueType name",
+              {  
+                "id": "ds9a7d9sa7d9sa8d,"
+                "_author":
+                { 
+                  "id": "asd8sad97asd8ahdas987ads",
+                  "firstname": "Romain",
+                  "lastname": "Terieur"
+                },
+                "_issueType":
+                { 
+                  "id": "dsa9d8sa09d809sa8das",
+                  "name": "Hole in a road",
+                  "description": "lorem ipsum"
+                  },
                 "description": "issue's description",
-                "coordinates": "24 42 13 2"
+                "longitude": "24",
+                "latitude": "12",
+                "status": "issue's status",
+                "_comments":
+                [{
+                  "id": "32kjlkjlkjl321",
+                  "_author":
+                  { 
+                    "id": "28312hkhkh321",
+                    "firstname": "Matthieu",
+                    "lastname": "Harbich"
+                  },
+                  "date": "3w3qweq",
+                  "content": "lorem ipsum"
+                },
+                {
+                  "id": "32kjlkjlkjl321",
+                  "_author":
+                  { 
+                    "id": "28312hkhkh321",
+                    "firstname": "Matthieu",
+                    "lastname": "Harbich"
+                  },
+                  "date": "3w3qweq",
+                  "content": "lorem ipsum"
+                }]
               }
   /{id}:
-    post:
-      description: Allow to populate random data to have a starting situation.
+    get:
+      description: Get an issue by his ID.
       responses:
         200:
           body:
             application/json:
               example: |
-                {
-                  "name": "issueType name",
-                  "description": "IssueType description"
+               {  
+                  "id": "ds9a7d9sa7d9sa8d,"
+                  "_author":
+                  { 
+                    "id": "asd8sad97asd8ahdas987ads",
+                    "firstname": "Romain",
+                    "lastname": "Terieur"
+                  },
+                  "_issueType":
+                  { 
+                    "id": "dsa9d8sa09d809sa8das",
+                    "name": "Hole in a road",
+                    "description": "lorem ipsum"
+                    },
+                  "description": "issue's description",
+                  "longitude": "24",
+                  "latitude": "12",
+                  "status": "issue's status",
+                  "_comments":
+                  [{
+                    "id": "32kjlkjlkjl321",
+                    "_author":
+                    { 
+                      "id": "28312hkhkh321",
+                      "firstname": "Matthieu",
+                      "lastname": "Harbich"
+                    },
+                    "date": "3w3qweq",
+                    "content": "lorem ipsum"
+                  },
+                  {
+                    "id": "32kjlkjlkjl321",
+                    "_author":
+                    { 
+                      "id": "28312hkhkh321",
+                      "firstname": "Matthieu",
+                      "lastname": "Harbich"
+                    },
+                    "date": "3w3qweq",
+                    "content": "lorem ipsum"
+                  }]
+                } 
+    put:
+      description: Update the details of a specific issue.
+      body:
+        application/json:
+          example: |
+            {  
+                "description": "issue's description",
+                "longitude": "24",
+                "latitude": "12"
+              }
+
+      responses: 
+        200:
+          body:
+            application/json:
+              example: |
+                {  
+                  "id": "ds9a7d9sa7d9sa8d,"
+                  "_author":
+                  { 
+                    "id": "asd8sad97asd8ahdas987ads",
+                    "firstname": "Romain",
+                    "lastname": "Terieur"
+                  },
+                  "_issueType":
+                  { 
+                    "id": "dsa9d8sa09d809sa8das",
+                    "name": "Hole in a road",
+                    "description": "lorem ipsum"
+                    },
+                  "description": "issue's description",
+                  "longitude": "24",
+                  "latitude": "12",
+                  "status": "issue's status",
+                  "_comments":
+                  [{
+                    "id": "32kjlkjlkjl321",
+                    "_author":
+                    { 
+                      "id": "28312hkhkh321",
+                      "firstname": "Matthieu",
+                      "lastname": "Harbich"
+                    },
+                    "date": "3w3qweq",
+                    "content": "lorem ipsum"
+                  },
+                  {
+                    "id": "32kjlkjlkjl321",
+                    "_author":
+                    { 
+                      "id": "28312hkhkh321",
+                      "firstname": "Matthieu",
+                      "lastname": "Harbich"
+                    },
+                    "date": "3w3qweq",
+                    "content": "lorem ipsum"
+                  }]
                 }
+    delete:
+      description: Delete a specific issue.
+      responses:
+        204:
+          body:
+
 
   /{id}/actions:
     post:
-      description: Action resource.
+      description: |
+        Actions update the issue statu's.
+        An action is an interaction that an user can have with your app.
 
+        ## Actions
+
+         * solve:
+         * acknowledge:
+         * assign an issue:
+         * reject an issue:
+         * take an issue:
+         * add a comment:
+
+      body:
+        application/json:
+          example: |
+            {
+              "actionName": "solve - acknowledge - ..."
+            }
+
+
+      
+          
 
 /issueType:
 
