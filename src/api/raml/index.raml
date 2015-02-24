@@ -122,7 +122,7 @@ traits:
           body:
 
 /issues:
-
+  description: issue resource.
   get:
     description: Retrieve the list of the issues.
     responses:
@@ -376,26 +376,45 @@ traits:
 
 
   /{id}/actions:
-    post:
+    get:
+      is: [auth: {roles: 'any'} ]
       description: |
-        Actions update the issue statu's.
-        An action is an interaction that an user can have with your app.
+        Retrieve the list of an action applied on a issue.
+        An action is an interaction that a user can have with an issue, for example:
 
         ## Actions
 
-         * solve:
-         * acknowledge:
+         * solve an issue:
+         * acknowledge an issue:
          * assign an issue:
          * reject an issue:
          * take an issue:
-         * add a comment:
-
-      body:
-        application/json:
-          example: |
-            {
-              "actionName": "solve - acknowledge - ..."
-            }
+         * add a comment on an issue:
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "actions": [
+                    {"id":"12345",
+                    "title":"solving an issue"}]
+                }
+             
+  /{id}/actions/{id}:
+    post:
+      is: [auth: {roles: 'any'} ]
+      description: Add an action on an issue.
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "actions": [
+                    {"id":"12345",
+                    "title":"solving an issue"}]
+                }
 
 /issueType:
   description: issueType resource.

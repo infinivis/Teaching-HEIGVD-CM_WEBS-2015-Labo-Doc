@@ -181,7 +181,25 @@ traits:
 
   /{id}/actions:
     post:
-      description: Action resource.
+      description: |
+        Retrieve an action on an issue by its id.
+        An action is an interaction that an user can have with your app.
+
+        ## Actions
+
+         * solve:
+         * acknowledge:
+         * assign an issue:
+         * reject an issue:
+         * take an issue:
+         * add a comment:
+
+      body:
+        application/json:
+          example: |
+            {
+              "actionName": "solve - acknowledge - ..."
+            }
 
 
 /issueType:
