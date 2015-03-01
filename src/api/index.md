@@ -32,7 +32,7 @@ Find below a quick summary of how HTTP verbs are used in the API:
 
 ### Authentication
 
-To interact with the API, your client will need to be authenticated for few resources. This is done by using the **x-user-id** header with the user id of the client and gives something that looks like:
+To interact with the API, your client will need to be authenticated for few resources. This isn't yet implemented. This will be done by using the **x-user-id** header with the user id of the client and gives something that looks like:
 
 	x-user-id: <id>
 
