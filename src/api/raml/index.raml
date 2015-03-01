@@ -12,7 +12,8 @@ traits:
   description: User resource.
   get:
     is: [auth: { roles: 'staff' }]
-    description: Retrive the list of the users.
+    description: Retrive the list of the users. It's possible to filter on this list with a query parameter.The parameter is 'query', and can have three differents values. 
+
     responses:
       200:
         body:
@@ -67,7 +68,7 @@ traits:
                   "citizen"
                 ]
               }
-
+                     
   /{id}:
     get:
       is: [auth: {roles: 'any'} ]
@@ -122,9 +123,45 @@ traits:
           body:
 
 /issues:
-  description: issue resource.
+  # description: issue resource.
   get:
-    description: Retrieve the list of the issues.
+    queryParameters:
+      user:
+        displayName: Author
+        type: string
+        description: An user ID
+        example: 54eb0a407e4d610e00224239
+        required: false
+
+      type:
+        displayName: issueType
+        type: string
+        description: An issueType ID
+        example: 54f33e4ae11d500e005c62a7
+        required: false
+
+      lng & lat (&rayon (optional):
+        displayName: Longitude & latitude
+        type: number
+        description: The longitude and latitude values, of the center of the wanted area. The optional "rayon" query is to set the size of the area.
+        example: lng=12&lat=10&rayon=2
+        required: false
+
+      sdStart & sdEnd:
+        displayName: Solved issues
+        type: string
+        description: The start date, and the finish date of the wanted range of solved issues. The dates has to be in format dd-mm-yyyy or d-m-yyyy. 
+        example: sdStart=01-04-2015&sdEnd=2-05-2015
+        required: false
+
+      cdStart & cdEnd:
+        displayName: Solved issues
+        type: string
+        description: The start date, and the finish date of the wanted range of created issues, but not solved. The dates has to be in format dd-mm-yyyy or d-m-yyyy. 
+        example: cdStart=01-04-2015&cdEnd=2-05-2015
+        required: false
+
+    description: Get the list of all the issues.
     responses:
       200:
         body:
@@ -132,44 +169,73 @@ traits:
             example: |
              {  
                 "id": "ds9a7d9sa7d9sa8d,"
-                "_author":
+                "author":
                 { 
-                  "id": "asd8sad97asd8ahdas987ads",
+                  "_id": "asd8sad97asd8ahdas987ads",
                   "firstname": "Romain",
-                  "lastname": "Terieur"
+                  "lastname": "Terieur",
+                  "phone":"+93832932",
+                  "__v":0,
+                  "roles":[
+                    "citizen"
+                  ]
                 },
                 "_issueType":
                 { 
-                  "id": "dsa9d8sa09d809sa8das",
-                  "name": "Hole in a road",
-                  "description": "lorem ipsum"
+                  "_id": "dsa9d8sa09d809sa8das",
+                  "name": "Hole",
+                  "description": "A hole issue type. Holes can be everywhere.",
+                  "__v":0
                   },
-                "description": "issue's description",
-                "longitude": "24",
-                "latitude": "12",
-                "status": "issue's status",
-                "_comments":
+                "assign":{
+                  "_id":"54eb0a407e4d610e00224241",
+                  "firstname":"Alex",
+                  "lastname":"Terieur",
+                  "phone":"+12341233",
+                  "--v":0,
+                  "roles":[
+                    "Citizen",
+                    "Staff"
+                  ]
+                },
+                "description": "There is a hole on 5th avenue!!",
+                "longitude": 24,
+                "latitude": 12,
+                "status": "Assigned",
+                "createdAt":"2015-03-01T16:49:43.985Z",
+                "solvedAt":null,
+                "tags":[
+                  "graf",
+                  "5thavenue",
+                  "vandals"
+                ]
+                "comments":
                 [{
-                  "id": "32kjlkjlkjl321",
+                  "_id": "54f346f8e11d500e005c62ae",
                   "_author":
                   { 
                     "id": "28312hkhkh321",
                     "firstname": "Matthieu",
                     "lastname": "Harbich"
                   },
-                  "date": "3w3qweq",
+                  "date": "2015-03-01T17:06:00.212",
                   "content": "lorem ipsum"
                 },
                 {
                   "id": "32kjlkjlkjl321",
                   "_author":
                   { 
-                    "id": "28312hkhkh321",
-                    "firstname": "Matthieu",
-                    "lastname": "Harbich"
+                    "_id": "54eb0a407e4d610e0022423d",
+                    "firstname": "Romain",
+                    "lastname": "Dutoit",
+                    "phone":"+342342342",
+                    "__v":0,
+                    "roles":[
+                      "staff"
+                    ]
                   },
-                  "date": "3w3qweq",
-                  "content": "lorem ipsum"
+                  "date": "2015-03-01T17:06:00.212",
+                  "content": "Hey thanks for this issue! I almost fall in!"
                 }]
               }
 
@@ -179,39 +245,12 @@ traits:
       application/json:
         example: |
           {  
-                "author":
-                { 
-                  "firstname": "Romain",
-                  "lastname": "Terieur"
-                },
-                "issueType":
-                { 
-                  "name": "Hole in a road",
-                  "description": "lorem ipsum"
-                  },
-                "description": "issue's description",
-                "longitude": "24",
-                "latitude": "12",
-                "status": "issue's status",
-                "comments":
-                [{
-                  "author":
-                  { 
-                    "firstname": "Matthieu",
-                    "lastname": "Harbich"
-                  },
-                  "date": "3w3qweq",
-                  "content": "lorem ipsum"
-                },
-                {
-                  "author":
-                  { 
-                    "firstname": "Matthieu",
-                    "lastname": "Harbich"
-                  },
-                  "date": "3w3qweq",
-                  "content": "lorem ipsum"
-                }]
+                "userId":"54f3427de11d500e005c62aa",
+                "issueTypeId":"54f33e4ae11d500e005c62a7",
+                "description": "Issue's description. f.ex: There is a hole in the middle of the golden-gate!!!",
+                "longitude": 24,
+                "latitude": 12,
+                "comments":[]
               }
     responses:
       201:
@@ -219,46 +258,16 @@ traits:
           application/json:
             example: |
               {  
-                "id": "ds9a7d9sa7d9sa8d,"
-                "_author":
-                { 
-                  "id": "asd8sad97asd8ahdas987ads",
-                  "firstname": "Romain",
-                  "lastname": "Terieur"
-                },
-                "_issueType":
-                { 
-                  "id": "dsa9d8sa09d809sa8das",
-                  "name": "Hole in a road",
-                  "description": "lorem ipsum"
-                  },
-                "description": "issue's description",
-                "longitude": "24",
-                "latitude": "12",
-                "status": "issue's status",
-                "_comments":
-                [{
-                  "id": "32kjlkjlkjl321",
-                  "_author":
-                  { 
-                    "id": "28312hkhkh321",
-                    "firstname": "Matthieu",
-                    "lastname": "Harbich"
-                  },
-                  "date": "3w3qweq",
-                  "content": "lorem ipsum"
-                },
-                {
-                  "id": "32kjlkjlkjl321",
-                  "_author":
-                  { 
-                    "id": "28312hkhkh321",
-                    "firstname": "Matthieu",
-                    "lastname": "Harbich"
-                  },
-                  "date": "3w3qweq",
-                  "content": "lorem ipsum"
-                }]
+                "id": "54f349efe11d500e005c62af",
+                "author":"54eb0a407e4d610e00224244",
+                "issueType":"54f33e4ae11d500e005c62a7",
+                "description": "Issue's description. f.ex: There is a hole in the middle of the golden-gate!!!",
+                "longitude": 24,
+                "latitude": 12,
+                "status": "Created",
+                "createdAt":"2015-03-01T17:18:39.785Z",
+                "solvedAt":null,
+                "comments":[]
               }
   /{id}:
     get:
@@ -269,56 +278,83 @@ traits:
             application/json:
               example: |
                {  
-                  "id": "ds9a7d9sa7d9sa8d,"
-                  "_author":
+                  "id": "ds9a7d9sa7d9sa8d",
+                  "author":
                   { 
-                    "id": "asd8sad97asd8ahdas987ads",
+                    "_id": "asd8sad97asd8ahdas987ads",
                     "firstname": "Romain",
-                    "lastname": "Terieur"
+                    "lastname": "Terieur",
+                    "phone":"+93832932",
+                    "__v":0,
+                    "roles":[
+                      "citizen"
+                    ]
                   },
                   "_issueType":
                   { 
-                    "id": "dsa9d8sa09d809sa8das",
-                    "name": "Hole in a road",
-                    "description": "lorem ipsum"
+                    "_id": "dsa9d8sa09d809sa8das",
+                    "name": "Hole",
+                    "description": "A hole issue type. Holes can be everywhere.",
+                    "__v":0
                     },
-                  "description": "issue's description",
-                  "longitude": "24",
-                  "latitude": "12",
-                  "status": "issue's status",
-                  "_comments":
+                  "assign":{
+                    "_id":"54eb0a407e4d610e00224241",
+                    "firstname":"Alex",
+                    "lastname":"Terieur",
+                    "phone":"+12341233",
+                    "--v":0,
+                    "roles":[
+                      "Citizen",
+                      "Staff"
+                    ]
+                  },
+                  "description": "There is a hole on 5th avenue!!",
+                  "longitude": 24,
+                  "latitude": 12,
+                  "status": "Assigned",
+                  "createdAt":"2015-03-01T16:49:43.985Z",
+                  "solvedAt":null,
+                  "tags":[
+                    "graf",
+                    "5thavenue",
+                    "vandals"
+                  ],
+                  "comments":
                   [{
-                    "id": "32kjlkjlkjl321",
+                    "_id": "54f346f8e11d500e005c62ae",
                     "_author":
                     { 
                       "id": "28312hkhkh321",
                       "firstname": "Matthieu",
                       "lastname": "Harbich"
                     },
-                    "date": "3w3qweq",
+                    "date": "2015-03-01T17:06:00.212",
                     "content": "lorem ipsum"
                   },
                   {
                     "id": "32kjlkjlkjl321",
                     "_author":
                     { 
-                      "id": "28312hkhkh321",
-                      "firstname": "Matthieu",
-                      "lastname": "Harbich"
+                      "_id": "54eb0a407e4d610e0022423d",
+                      "firstname": "Romain",
+                      "lastname": "Dutoit",
+                      "phone":"+342342342",
+                      "__v":0,
+                      "roles":[
+                        "staff"
+                      ]
                     },
-                    "date": "3w3qweq",
-                    "content": "lorem ipsum"
+                    "date": "2015-03-01T17:06:00.212",
+                    "content": "Hey thanks for this issue! I almost fall in!"
                   }]
-                } 
+                  } 
     put:
       description: Update the details of a specific issue.
       body:
         application/json:
           example: |
             {  
-                "description": "issue's description",
-                "longitude": "24",
-                "latitude": "12"
+                "tags":["graffiti", "nyc", "broadway", "one more tag"]
               }
 
       responses: 
@@ -327,45 +363,26 @@ traits:
             application/json:
               example: |
                 {  
-                  "id": "ds9a7d9sa7d9sa8d,"
-                  "_author":
-                  { 
-                    "id": "asd8sad97asd8ahdas987ads",
-                    "firstname": "Romain",
-                    "lastname": "Terieur"
-                  },
-                  "_issueType":
-                  { 
-                    "id": "dsa9d8sa09d809sa8das",
-                    "name": "Hole in a road",
-                    "description": "lorem ipsum"
-                    },
-                  "description": "issue's description",
-                  "longitude": "24",
-                  "latitude": "12",
-                  "status": "issue's status",
-                  "_comments":
+                  "id": "ds9a7d9sa7d9sa8d",
+                  "author":"54eb0a407e4d610e00224244",
+                  "issueType":"54f33e4ae11d500e005c62a7",
+                  "description": "Graff on boradway!!!",
+                  "assign":"54eb0a407e4d610e00224241",
+                  "longitude": 21,
+                  "latitude": 12,
+                  "status": "Assigned",
+                  "tags":[
+                    "graffiti",
+                    "nyc",
+                    "broadway",
+                    "one more tag"
+                  ],
+                  "comments":
                   [{
-                    "id": "32kjlkjlkjl321",
-                    "_author":
-                    { 
-                      "id": "28312hkhkh321",
-                      "firstname": "Matthieu",
-                      "lastname": "Harbich"
-                    },
-                    "date": "3w3qweq",
-                    "content": "lorem ipsum"
-                  },
-                  {
-                    "id": "32kjlkjlkjl321",
-                    "_author":
-                    { 
-                      "id": "28312hkhkh321",
-                      "firstname": "Matthieu",
-                      "lastname": "Harbich"
-                    },
-                    "date": "3w3qweq",
-                    "content": "lorem ipsum"
+                    "_id": "54f346f8e11d500e005c62ae",
+                    "author":"54eb0a407e4d610e0022423d",
+                    "date": "2015-03-01T17:06:00.212Z",
+                    "content": "Hey thanks for this issue! I almost fall in!"
                   }]
                 }
     delete:
@@ -379,42 +396,138 @@ traits:
     get:
       is: [auth: {roles: 'any'} ]
       description: |
-        Retrieve the list of an action applied on a issue.
-        An action is an interaction that a user can have with an issue, for example:
-
-        ## Actions
-
-         * solve an issue:
-         * acknowledge an issue:
-         * assign an issue:
-         * reject an issue:
-         * take an issue:
-         * add a comment on an issue:
+        Retrieve the list of actions applied on as issue.
+        
       responses:
         200:
           body:
             application/json:
               example: |
                 {
-                  "actions": [
-                    {"id":"12345",
-                    "title":"solving an issue"}]
+                  "id":"54f352d8e11d500e005c62b1",
+                  "actionType":"takeIssue",
+                  "author":{
+                    "_id":"54eb0a407e4d610e00224244",
+                    "firstname":"Henri",
+                    "lastname":"Desportes",
+                    "phone":"+2312312",
+                    "__v":0,
+                    "roles":[
+                      "Citizen"
+                    ]
+                  },
+                  "date":"2015-03-01T17:56:40.850"
                 }
              
-  /{id}/actions/{id}:
     post:
       is: [auth: {roles: 'any'} ]
-      description: Add an action on an issue.
+      description: |
+        In a post of this uri, the only thing you can do is add a comment to a specific issue.
+
+        ## Action
+         * add a comment on an issue: `"actionType":"addComment"`
+      body:
+        application/json:
+          example: |
+            {
+              "userId":"54eb0a407e4d610e00224244",
+              "actionType":"addComment",
+              "content":"Comment's content. F.ex: Hello! Thank you for that issue...."
+            }
       responses:
         200:
           body:
             application/json:
               example: |
                 {
-                  "actions": [
-                    {"id":"12345",
-                    "title":"solving an issue"}]
+                  "id":"54f3424ae11d500e005c62a8",
+                  "author":"54eb0a407e4d610e00224244",
+                  "issueType":"54f33e4ae11d500e005c62a7",
+                  "description":"First issue on 5th avenue!!!",
+                  "longitude": 23,
+                  "latitude":17,
+                  "status": "taken",
+                  "createdAt": "2015-03-01T16:46:02.096Z",
+                  "solvedAt": null,
+                  "tags":["myTag"],
+                  "comments":[
+                    "_id":"54f365d2afddda0e00976aea",
+                    "content":"My second comment!",
+                    "author":"54eb0a407e4d610e00224238",
+                    "date": "2015-03-01T19:17:38.037"
+                  ]
                 }
+
+    put:
+      is: [auth: {roles: 'any'} ]
+      description: |
+        With the `put` Http verb, there is actually five possible actions. 
+
+        ## Action
+         * Solve an issue: `"actionType":"solveIssue"`
+         * Acknowledge an issue: `"actionType":"acknowledge"`
+         * Assign an issue: `"actionType":"assignIssue"`. Only a staff can be assigned. `"assignId":"213nlk23l"` has to be sent.
+         * Reject an issue: `"actionType":"rejectIssue"`
+         * Take an issue: `"actionType":"takeIssue"` 
+      body:
+        application/json: 
+          example: |
+            {
+              "userId":"54eb0a407e4d610e00224238",
+              "actionType":"takeIssue",
+              "issueId":"54f3424ae11d500e005c62a8"
+            }
+            or
+            {
+              "userId":"54eb0a407e4d610e00224238",
+              "actionType":"acknowledge",
+              "issueId":"54f3424ae11d500e005c62a8"
+            }
+            or
+            {
+              "userId":"54eb0a407e4d610e00224238",
+              "actionType":"solveIssue",
+              "issueId":"54f3424ae11d500e005c62a8"
+            }
+            or
+            {
+              "userId":"54eb0a407e4d610e00224238",
+              "actionType":"assignIssue",
+              "assignId":"54eb0a407e4d610e00224238",
+              "issueId":"54f3424ae11d500e005c62a8"
+            }
+            or
+            {
+              "userId":"54eb0a407e4d610e00224238",
+              "actionType":"rejectIssue",
+              "issueId":"54f3424ae11d500e005c62a8"
+            }
+
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "id":"54f3424ae11d500e005c62a8",
+                  "author":"54eb0a407e4d610e00224244",
+                  "issueType":"54f33e4ae11d500e005c62a7",
+                  "description":"First issue on 5th avenue!!!",
+                  "longitude": 23,
+                  "latitude":17,
+                  "assign":"80sd890adsadasd3",
+                  "status": "taken" or "Solved" or "Assigned" or "Acknowledged" or "Rejected",
+                  "createdAt": "2015-03-01T16:46:02.096Z",
+                  "solvedAt": null,
+                  "tags":["myTag"],
+                  "comments":[
+                    "_id":"54f365d2afddda0e00976aea",
+                    "content":"My second comment!",
+                    "author":"54eb0a407e4d610e00224238",
+                    "date": "2015-03-01T19:17:38.037"
+                  ]
+                }
+
 
 /issueType:
   description: issueType resource.
