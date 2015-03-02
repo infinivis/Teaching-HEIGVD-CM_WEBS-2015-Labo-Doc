@@ -30,6 +30,21 @@ Find below a quick summary of how HTTP verbs are used in the API:
 
 `HEAD` and `PATCH` are not currently used.
 
+### Some examples
+
+In the `path` part, is all the pathes that come after this url: `https://mighty-hamlet-9493.herokuapp.com/api/`.
+For example: `https://mighty-hamlet-9493.herokuapp.com/api/users`
+
+| Path    | http-verb | Description | 
+|----------|--------|-----------
+| `issues` | GET | Used for retrieving all the issues.
+| `issues`   | POST  |Used for creating a new issue.
+| `issue/{id}` | GET  |Used to get one specific issue.
+| `issue/{id}/action` | POST/PUT |Used to make an action on a specific issue.
+
+The app is working like that. Checkout the resources to get more details to how to get with it. 
+
+
 ### Authentication
 
 To interact with the API, your client will need to be authenticated for few resources. This isn't yet implemented. This will be done by using the **x-user-id** header with the user id of the client and gives something that looks like:
