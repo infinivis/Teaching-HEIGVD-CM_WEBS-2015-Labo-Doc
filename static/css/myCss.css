@@ -1,0 +1,76 @@
+body{
+	background-image: url('../img/bigCity.png');
+	background-repeat: none;
+	color:#2E2E2E;
+	text-align: justify;
+
+}
+
+.container{ ;
+				}
+
+.home{
+	text-align: left;
+
+}
+
+#let-s-get-your-city-smarter-{
+	padding-top:100px;
+	color:white;
+	font-size: 5em;
+	text-shadow: 4px 4px 27px rgba(0, 0, 0, 1);
+	}
+
+#use-citizen-engagement-{
+	color:white;
+	font-size: 3em;
+	text-shadow: 4px 4px 27px rgba(0, 0, 0, 1);
+	
+}
+
+#-heroku-https-mighty-hamlet-9493-herokuapp-com- a{
+	text-decoration: underline;
+	color:white;
+	font-size: 2em;
+	float:left;
+	text-shadow: 4px 4px 27px rgba(0, 0, 0, 1);
+	padding-top:70px;
+	margin-right: 30px;
+	
+}
+
+#-heroku-https-mighty-hamlet-9493-herokuapp-com- a:hover{
+	color:#FA4B4B;
+
+}
+
+#-github-https-github-com-matthieuharbich-teaching-heigvd-cm_webs-2015-labo-express- a{
+	text-decoration: underline;
+	color:white;
+	font-size: 2em;
+	float:left;
+	padding-top:70px;
+	text-shadow: 4px 4px 27px rgba(0, 0, 0, 1);
+	
+}
+
+#-github-https-github-com-matthieuharbich-teaching-heigvd-cm_webs-2015-labo-express- a:hover{
+	color:#FA4B4B;
+
+}
+
+
+
+body.home{
+	
+	background-image: url('../img/bigCityDark.png');
+}
+.resource{
+	background-color: white;
+}
+.footer{
+	height:80px;
+	margin-top:10px;
+	text-align: center;
+}
+
